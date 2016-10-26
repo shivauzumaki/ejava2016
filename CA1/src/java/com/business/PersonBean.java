@@ -34,6 +34,12 @@ public class PersonBean {
         //System.out.println("Reached PersonBean : email is  "+ email );
         TypedQuery<People> query = em.createQuery(findByEmailQuery, People.class);
         query.setParameter("email", email);
-        return Optional.ofNullable(query.getResultList().get(0));
+        People singleResult = null;
+        try{
+           singleResult =  query.getSingleResult();
+        }catch(Exception ex){
+            
+        }
+        return Optional.ofNullable(singleResult);
     }
 }
