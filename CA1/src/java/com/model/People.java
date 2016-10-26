@@ -1,22 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.model;
 
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
  * @author Vishnu
  */
-public class People {
+@Entity
+@Table(name="people")
+public class People implements Serializable {
     
-    
+    @Id
     private String pid;
     private String name;
     private String email;
+    
+    @OneToMany(mappedBy = "people")
+    private List<Appointment> appointment;
 
     public String getName() {
         return name;
@@ -37,6 +45,13 @@ public class People {
     }
     public void setPid(String pid) {
         this.pid = pid;
+    }
+
+    public List<Appointment> getAppointment() {
+        return appointment;
+    }
+    public void setAppointment(List<Appointment> appointment) {
+        this.appointment = appointment;
     }
     
     

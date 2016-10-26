@@ -1,27 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package com.model;
+
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Vishnu
  */
-public class Appointment {
+@Entity
+@Table(name="appointment")
+public class Appointment implements Serializable {
     
-    private Integer appointmentID;
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    private int appt_id;
     private String description;
-    private long appointmentDate;
-    private String personId;
-
-    public Integer getAppointmentID() {
-        return appointmentID;
-    }
-    public void setAppointmentID(Integer appointmentID) {
-        this.appointmentID = appointmentID;
-    }
+    private Date appt_date;
+    
+    @JoinColumn(name="pid", referencedColumnName="pid")
+    @ManyToOne
+    private People people;
 
     public String getDescription() {
         return description;
@@ -30,20 +36,28 @@ public class Appointment {
         this.description = description;
     }
 
-    public long getAppointmentDate() {
-        return appointmentDate;
+    public People getPeople() {
+        return people;
     }
-    public void setAppointmentDate(long appointmentDate) {
-        this.appointmentDate = appointmentDate;
+    public void setPeople(People people) {
+        this.people = people;
     }
 
-    public String getPersonId() {
-        return personId;
+    public int getAppt_id() {
+        return appt_id;
     }
-    public void setPersonId(String personId) {
-        this.personId = personId;
+
+    public void setAppt_id(int appt_id) {
+        this.appt_id = appt_id;
     }
-    
+
+    public Date getAppt_date() {
+        return appt_date;
+    }
+
+    public void setAppt_date(Date appt_date) {
+        this.appt_date = appt_date;
+    }
     
     
 }
