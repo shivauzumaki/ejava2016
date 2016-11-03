@@ -14,6 +14,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -54,9 +56,7 @@ public class NoteView {
   
     public void addNote(){
         
-        System.out.println("Session >>>>>>> "+ SessionUtils.getUserId());
-        System.out.println("Adding note\n "+note.getTitle());
-        note.setUserid(SessionUtils.getUserId());
+        note.setUserid(SessionUtils.getContext().getUserPrincipal().toString());
         noteBean.addNote(note);
         
     }
@@ -65,7 +65,7 @@ public class NoteView {
         
         this.noteList = new ArrayList<>();
         
-        this.noteList = noteBean.getNotes(SessionUtils.getUserId());
+        this.noteList = noteBean.getNotes(SessionUtils.getContext().getUserPrincipal().toString());
         System.out.println("My notes list "+ noteList.size());
         return ("displayMyNotes?faces-redirect=true");
     }
