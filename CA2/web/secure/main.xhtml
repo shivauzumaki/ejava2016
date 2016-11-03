@@ -10,15 +10,18 @@
         <h:form>
         <div align="center">
             <h1 style="font-size: xx-large;align-items: center">Notice Board</h1>
-            <div align="left">
-                Welcome : <h:outputText value="#{request.remoteUser}"/>
+            <div style="width: 70%; background-color: gainsboro">
+                <div align="left">
+                    Welcome : <h:outputText value="#{request.remoteUser}"/>
+                </div>
+                <div align="right">
+                    <h:commandButton value="Logout" action="#{userView.logout()}"/>
+                </div>
+
+                <h:commandButton value="Create Note" action="#{mainView.createNote()}"/>
+
+                <h:commandButton value="See my Notes" action="#{mainView.viewNotes()}"/>
             </div>
-            <div align="right">
-                <h:commandButton value="Logout" action="#{userView.logout()}"/>
-            </div>
-        
-            <h:commandButton value="Create Note" action="#{mainView.createNote()}"/>
-            <h:commandButton value="See my Notes" action="#{mainView.viewNotes()}"/>
         </div>
         </h:form>
        

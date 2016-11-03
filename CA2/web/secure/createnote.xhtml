@@ -6,29 +6,32 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     
     <h:head>
-        <title>Facelet Title</title>
+        <link href="../style/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <link href="../style/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="../style/js/jquery-3.1.1.js" type="text/javascript"></script>
+        <script src="../style/js/bootstrap.min.js" type="text/javascript"></script>
     </h:head>
     <h:body>
-        <div align="center">
+        <div align="center" >
             <h1 style="font-size: xx-large;align-items: center">Notice Board</h1>
         </div>
-        <div align="center">
+        <div align="center" style="width: 70%;margin-left:180px" >
             <h:form>
                 <h:panelGrid columns="2">
-                Title: <h:inputText value="#{noteView.note.title}" required="true" />
+                Title: <h:inputText class="form-control" value="#{noteView.note.title}" required="true" />
                 <br/>
                 Category: 
                 <h:selectOneMenu value="#{noteView.note.category}" required="true" >
-                    <f:selectItems value="#{noteView.categories}"/>
+                    <f:selectItems  class="dropdown-item" value="#{noteView.categories}"/>
                 </h:selectOneMenu>
                 <br/>
-                Content: <h:inputTextarea value="#{noteView.note.content}" required="true"
+                Content: <h:inputTextarea class="form-control" value="#{noteView.note.content}" required="true"
                                           rows="10" cols="70" style="font: caption" >
                                            <f:validateLength maximum="10"></f:validateLength>
                         </h:inputTextarea>
                 <br/>
-                <h:commandButton value="Add" action="#{noteView.addNote()}"/>
-                <h:commandButton value="Back" action="#{noteView.back()}"/>
+                <br/>
+                <h:commandButton class="btn btn-primary" value="Add" action="#{noteView.addNote()}"/>
                 </h:panelGrid>
             </h:form>
         </div>

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -37,9 +39,11 @@ public class MainView implements Serializable{
     
     public String viewNotes() {
         
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        
         this.noteList = new ArrayList<>();
-        this.noteList = 
-        noteBean.getNotes(SessionUtils.getUserId());
+        
+        this.noteList = noteBean.getNotes(ec.getUserPrincipal().toString());
         System.out.println("My notes list "+ noteList.size());
         return ("displayMyNotes?faces-redirect=true");
     }

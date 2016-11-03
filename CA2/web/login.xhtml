@@ -5,7 +5,10 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
-        
+        <link href="../style/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <link href="../style/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="../style/js/jquery-3.1.1.js" type="text/javascript"></script>
+        <script src="../style/js/bootstrap.min.js" type="text/javascript"></script>
     </h:head>
     <h:body>
         <f:event type="preRenderView" listener="#{userView.isLoggedIn()}"/>
@@ -17,16 +20,16 @@
         <h:form id="login">
             <h:panelGrid columns="2">
                 
-                Username: <h:inputText value="#{userView.user.username}" size="20" required="true" />
-                Password: <h:inputSecret value="#{userView.user.password}" size="20" required="true"/>
+                Username: <h:inputText class="form-control" id="nameField" value="#{userView.user.username}" size="20" required="true" requiredMessage="Please enter the username"/>
+                <br/>
+                Password: <h:inputSecret class="form-control" id="passField" value="#{userView.user.password}" size="20" required="true" requiredMessage="Please enter the password"/>
                 
-                <h:commandButton  value="Register" action="#{userView.registerUser()}"/>
-                <h:commandButton value="Login" action="#{userView.login()}"/>
+                <h:commandButton class="btn btn-primary" value="Register" action="#{userView.registerUser()}"/>
+                <h:commandButton class="btn btn-primary" value="Login" action="#{userView.login()}"/>
                 
             </h:panelGrid>
          </h:form>
         </div>
-   
     </h:body>
 </html>
 
