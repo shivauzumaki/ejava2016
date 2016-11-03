@@ -16,7 +16,7 @@
         <nav class="navbar navbar-inverse navbar-static-top">
 	<div class="container">
 		<div class="navbar-header">			
-			<a class="navbar-brand">Notice Board</a>
+                                <p class="navbar-text">Notice Board</p>   
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right"/>
@@ -30,17 +30,20 @@
         </div>
         
         <div align="center">
-        <h:form id="login">
-            <h:panelGrid columns="2">
-                
-                Username: <h:inputText class="form-control" id="nameField" value="#{userView.user.username}" size="20" required="true" requiredMessage="Please enter the username"/>
-                <br/>
-                Password: <h:inputSecret class="form-control" id="passField" value="#{userView.user.password}" size="20" required="true" requiredMessage="Please enter the password"/>
-                
-                <h:commandButton class="btn btn-primary" value="Register" action="#{userView.registerUser()}"/>
-                <h:commandButton class="btn btn-primary" value="Login" action="#{userView.login()}"/>
+            
+        <h:form id="login">          
+            
+            <h:panelGrid>                
+                Username: <h:inputText class="form-control" id="nameField" value="#{userView.user.username}" size="20" required="true" requiredMessage="Please enter the username"/><br/>
+                Password: <h:inputSecret class="form-control" id="passField" value="#{userView.user.password}" size="20" required="true" requiredMessage="Please enter the password"/><br/>
                 
             </h:panelGrid>
+                                       
+                <div class="btn-group">            
+                <h:commandButton class="btn btn-primary" value="Register" action="#{userView.registerUser()}"/> 
+                <h:commandButton class="btn btn-primary btn-outline" value="Login" action="#{userView.login()}"/>
+                </div>
+            
          </h:form>
         </div>
     </h:body>

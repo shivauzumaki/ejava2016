@@ -2,44 +2,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
     <h:head>
-        <title>Facelet Title</title>
-        <link href="style/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="style/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <script src="style/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="style/js/jquery-3.1.1.js" type="text/javascript"></script>
+        <title>Notice Board</title>
+        <link href="${request.contextPath}/style/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <link href="${request.contextPath}/style/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="${request.contextPath}/style/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="${request.contextPath}/style/js/jquery-3.1.1.js" type="text/javascript"></script>        
+        <script src="${request.contextPath}/style/js/bootstrap.js" type="text/javascript"></script>
     </h:head>
     
-    <h:body >
-        <nav class="navbar navbar-inverse navbar-static-top">
-	<div class="container">
-		<div class="navbar-header">			
-			<a class="navbar-brand">Notice Board</a>
-		</div>
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right"/>
-		</div>
-	</div>
-        </nav>    
-        
-        <h:form>
-        <div align="center">
-            <h1 style="font-size: xx-large;align-items: center">Notice Board</h1>
-            <div style="width: 70%; background-color: gainsboro">
-                <div align="left">
-                    Welcome : <h:outputText value="#{request.remoteUser}"/>
+    <h:body >        
+        <h:form>            
+            <nav class="navbar navbar-inverse navbar-static-top">
+                <div class="container">
+                        <div class="navbar-header">			
+                                <p class="navbar-text">Notice Board</p>   
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">                            
+                                    <li><p class="navbar-text">#{request.remoteUser}</p></li>                       
+                                    <li><h:commandLink value="Logout" action="#{userView.logout()}"/></li>                   
+                                </ul>
+                        </div>
                 </div>
-                <div align="right">
-                    <h:commandButton value="Logout" action="#{userView.logout()}"/>
+            </nav>    
+            <div align="center">
+              <div class="jumbotron">
+                <div class="container">
+                    <h:commandButton class="btn btn-primary btn-lg" value="Create Note" action="#{mainView.createNote()}"/><br/><br/>
+                    <h:commandButton class="btn btn-primary btn-lg" value="See my Notes" action="#{mainView.viewNotes()}"/>
                 </div>
-
-                <h:commandButton value="Create Note" action="#{mainView.createNote()}"/>
-
-                <h:commandButton value="See my Notes" action="#{mainView.viewNotes()}"/>
+              </div>   
             </div>
-        </div>
-        </h:form>
-       
+        </h:form>       
     </h:body>
 </html>
 
