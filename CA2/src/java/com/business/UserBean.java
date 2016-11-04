@@ -24,8 +24,12 @@ public class UserBean {
         
         User duplicateUser = em.find(User.class, user.getUsername());
         
-        em.persist(user);
-        return user;
+        if(duplicateUser==null){
+            em.persist(user);
+            return user;
+        }
+        
+        return null;
     }
     
 }

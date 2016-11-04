@@ -11,7 +11,7 @@
         <script src="../style/js/jquery-3.1.1.js" type="text/javascript"></script>
         <script src="../style/js/bootstrap.min.js" type="text/javascript"></script>
         
-        <script type="text/javascript">
+        <script src="chat.js"></script>
             
         </script>
     </h:head>
@@ -29,7 +29,7 @@
                     <h:panelGrid columns="2" cellspacing="50" cellpadding="20">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="email">Title:</label> 
-                            <h:inputText class="form-control" value="#{noteView.note.title}" required="true" />
+                            <h:inputText id="title" class="form-control" value="#{noteView.note.title}" required="true" />
                             </div>
                             <br/>
                         <div class="form-group">
@@ -50,7 +50,7 @@
                         <br/>
                         <h:panelGroup/>
                         <h:commandLink class="btn btn-primary" value="Back" onclick="history.go(-1)"/>
-                        <h:commandButton class="btn btn-primary" value="Add" action="#{noteView.addNote()}"/>
+                        <h:commandButton class="btn btn-primary" id="addBtn" value="Add" action="#{noteView.addNote()}"/>
                     </h:panelGrid>
                 </h:form>
             </div>

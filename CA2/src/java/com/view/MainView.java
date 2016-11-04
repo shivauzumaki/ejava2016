@@ -42,8 +42,8 @@ public class MainView implements Serializable{
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         
         this.noteList = new ArrayList<>();
-        
-        this.noteList = noteBean.getNotes(ec.getUserPrincipal().toString());
+        this.noteList = noteBean.getIndividualNotes(ec.getRemoteUser());
+        //this.noteList = noteBean.getNotes("ALL");
         System.out.println("My notes list "+ noteList.size());
         return ("displayMyNotes?faces-redirect=true");
     }

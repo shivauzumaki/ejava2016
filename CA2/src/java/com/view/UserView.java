@@ -69,25 +69,31 @@ public class UserView {
     }
     
     public void registerUser() throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        
+        FacesMessage message;
         String password = encryptPassword(user.getPassword());
-        if(password != null ){
-            user.setPassword(password);
-            userBean.registerUser(user);
-
+        
+        user.setPassword(password);
+                
+        User userObject = userBean.registerUser(user);
+        if(userObject!=null){
             Group group = new Group();
             group.setGroupid("USER");
             group.setUserid(user.getUsername());
             groupBean.addGroup(group);
+        }else{
+            message =  new FacesMessage("User already registered. Please use another name");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
+                
     }
     
-    public void logout() throws IOException {
+    public String logout() throws IOException {
         
         //HttpServletRequest req = SessionUtils.getRequest();
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("login");
+        //FacesContext.getCurrentInstance().getExternalContext().redirect("index");
+        return ("/login.xhtml?faces-redirect=true");
     }
     
     public String encryptPassword(String password){
