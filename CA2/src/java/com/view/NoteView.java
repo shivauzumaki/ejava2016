@@ -81,9 +81,4 @@ public class NoteView {
         this.noteList = noteBean.getNotes("all");
         return this.noteList;
     }
-    
-      
-    public String back(){
-       return ("main");
-    }
 }

@@ -36,7 +36,4 @@ public class Group implements Serializable {
     public void setGroupid(String groupid) {
         this.groupid = groupid;
     }
-    
-    
-    
 }

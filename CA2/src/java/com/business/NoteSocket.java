@@ -41,7 +41,6 @@ public class NoteSocket {
 	@OnMessage
 	public void message(final javax.websocket.Session session, final String msg) {
 		
-            System.out.println(">>> in thread");
             final JsonObject message = Json.createObjectBuilder()
                             .add("message", msg)
                             .add("date", (new Date()).toString())
@@ -53,7 +52,5 @@ public class NoteSocket {
                     } catch(IOException ex) {
                             try { s.close(); } catch (IOException e) { }
                     }
-		
 	}
-
 }

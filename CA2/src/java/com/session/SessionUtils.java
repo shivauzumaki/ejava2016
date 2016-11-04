@@ -20,16 +20,6 @@ public class SessionUtils {
         return (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
     }
     
-//    public static HttpServletRequest getRequest(){
-//        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-//    }
-    
-//    public static String getUserId(){
-//        
-//        HttpSession session = getSession();
-//        return session.getAttribute("userid").toString();
-//    }
-    
     public static ExternalContext getContext() {
         
         return FacesContext.getCurrentInstance().getExternalContext();

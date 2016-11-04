@@ -14,12 +14,12 @@
         <script src="#{request.contextPath}/style/js/bootstrap.js" type="text/javascript"></script>
         <script type="text/javascript">
             function publishNote(){
-
                 var title = document.getElementById('form:title').value;
                 var category = document.getElementById('form:category').value;
                 var content = document.getElementById('form:content').value;
 
-                var message = {"title": title, "category": category, "content": content};
+                var username = usrname.innerHTML;
+                var message = {"title": title, "category": category, "content": content,"username": username};
                 
                 var url = "ws://localhost:8080/CA2/noteSocket";
                 var socket = new WebSocket(url);
@@ -36,6 +36,7 @@
     </h:head>
 
     <h:body>
+        
         <h:form id="main">   
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
@@ -44,7 +45,7 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">                            
-                            <li><p class="navbar-text">#{request.remoteUser}</p></li>                       
+                            <li><p class="navbar-text" id="usrname">#{request.remoteUser}</p></li>                       
                             <li><h:commandLink value="Logout" action="#{userView.logout()}"/></li>                   
                         </ul>
                     </div>

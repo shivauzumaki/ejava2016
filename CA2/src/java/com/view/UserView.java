@@ -52,7 +52,6 @@ public class UserView {
                
         try{
             req.login(user.getUsername(), user.getPassword());
-            //session.setAttribute("userid", user.getUsername());
         }catch(Throwable t){
             t.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Authentication failed ! Please try again."));
