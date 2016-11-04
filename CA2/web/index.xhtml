@@ -19,28 +19,23 @@
 
                 var socket = new WebSocket(url);
                 socket.onopen = function () {
-                    alert("Conn");
+                    //alert("Conn");
                 }
                 socket.onclose = function () {
-                    alert("Diconn");
+                    //alert("Diconn");
                 }
                 socket.onmessage = function (evt) {
-                    // {message: "the message" , timestamp: "time" }
-                    alert("Received event data "+evt.data);
+
                     var msg = JSON.parse(evt.data);
-                    alert("Message : "+msg.message);
                     var note = msg.message;
-                    alert("title : " + JSON.parse(note).title);
+                    var date = msg.date;
                     
                     var title = JSON.parse(note).title;
                     var category = JSON.parse(note).category;
                     var content = JSON.parse(note).content;
-                    document.getElementById("forsale-Table").innerHTML = '<tr><td class="">'+title+'</td><td class="">'+category+'</td><td class="">'+content+'</td>     <td class="">'+'DATE_HERE</td>                                      </tr> ' +document.getElementById("forsale-tbl").innerHTML
-//                    document.getElementById("title").innerHTML = title;
-//                    document.getElementById("category").innerHTML = category;
-//                    document.getElementById("content").innerHTML = content;
                     
-                    
+                    document.getElementById("All-Table").innerHTML = '<tr><td class="">'+title+'</td><td class="">'+category+'</td><td class="">'+content+'</td><td class="">'+date+'</td></tr> ' + document.getElementById("All-Table").innerHTML
+                    document.getElementById(category+"-Table").innerHTML = '<tr><td class="">'+title+'</td><td class="">'+category+'</td><td class="">'+content+'</td><td class="">'+date+'</td></tr> ' + document.getElementById(category+"-Table").innerHTML
                 }
             });
 
@@ -52,14 +47,15 @@
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
                     <div class="navbar-header">			
-                        <p class="navbar-text">Notice Board</p>   
+                        <a href="#" class="navbar-text">Notice Board</a>  
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-
-                            <li><a href="/CA2/faces/login.xhtml">Login/Register</a></li>	
-
+                            <li><h:commandLink action="login" rendered="#{!request.isUserInRole('USER')}">Login/Register</h:commandLink></li>	
                         </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><h:commandLink action="#{userView.logout()}" rendered="#{request.isUserInRole('USER')}">Logout</h:commandLink></li>	
+                        </ul> 
                     </div>
                 </div>
             </nav>  
@@ -83,14 +79,14 @@
                 <div class="tab-content clearfix">
                     <div class="tab-pane active" id="1a">
                         <h3>
-                            <table class="table" style="table-layout: fixed;font-size: small" id="forsale-Table" border="1">
+                            <table class="table" style="table-layout: fixed;font-size: small" border="1">
                                 <tr>
                                     <th class="">Title</th>
                                     <th class="">Category</th>
                                     <th class="">Content</th>
                                     <th class="">Date</th>
                                 </tr>
-                            <tbody>
+                            <tbody id="All-Table" >
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
                                     <tr>
                                         <td class="">#{note.title}</td>
@@ -103,28 +99,25 @@
                             </table>
                         </h3>
                     </div>
-
-
-
                     <div class="tab-pane" id="2a">
                         <h3>
-                            <table class="table" style="table-layout: fixed;font-size: small" id="forsale-Table" border="1">
+                            <table class="table" style="table-layout: fixed;font-size: small" border="1">
                                 <tr>
                                     <th class="">Title</th>
                                     <th class="">Category</th>
                                     <th class="">Content</th>
                                     <th class="">Date</th>
                                 </tr>
-                            <tbody>
+                            <tbody id="Social-Table">
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
-                                    <c:if test="${note.category == 'Social'}">
+                                    <h:panelGroup rendered="#{note.category == 'Social'}">
                                     <tr>
                                         <td class="">#{note.title}</td>
                                         <td class="">#{note.category}</td>
                                         <td class="">#{note.content}</td>
                                         <td class="">#{note.date}</td>
                                     </tr>
-                                    </c:if>
+                                    </h:panelGroup>
                                 </ui:repeat>
                             </tbody>
                             </table>
@@ -132,23 +125,23 @@
                     </div>
                     <div class="tab-pane" id="3a">
                         <h3>
-                            <table class="table" style="table-layout: fixed;font-size: small" id="forsale-Table" border="1">
+                            <table class="table" style="table-layout: fixed;font-size: small" border="1">
                                 <tr>
                                     <th class="">Title</th>
                                     <th class="">Category</th>
                                     <th class="">Content</th>
                                     <th class="">Date</th>
                                 </tr>
-                            <tbody>
+                            <tbody id="For Sale-Table">
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
-                                    <c:if test="${note.category eq 'For Sale'}">
+                                    <h:panelGroup rendered="#{note.category == 'For Sale'}">
                                     <tr>
                                         <td class="">#{note.title}</td>
                                         <td class="">#{note.category}</td>
                                         <td class="">#{note.content}</td>
                                         <td class="">#{note.date}</td>
                                       </tr>
-                                    </c:if>
+                                    </h:panelGroup>
                                 </ui:repeat>
                             </tbody>
                             </table>
@@ -156,22 +149,23 @@
                     </div>
                     <div class="tab-pane" id="4a">
                         <h3>
-                            <table class="table" style="table-layout: fixed;font-size: small" id="forsale-Table" border="1">
+                            <table class="table" style="table-layout: fixed;font-size: small" border="1">
                                 <tr>
                                     <th class="order-table-header">Title</th>
                                     <th class="order-table-header">Category</th>
                                     <th class="order-table-header">Content</th>
                                     <th class="order-table-header">Date</th>
                                 </tr>
-                            <tbody>
+                            <tbody id="Jobs-Table">
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
-                                    
+                                    <h:panelGroup rendered="#{note.category == 'Jobs'}">
                                     <tr>
                                         <td class="">#{note.title}</td>
                                         <td class="">#{note.category}</td>
                                         <td class="">#{note.content}</td>
                                         <td class="">#{note.date}</td>
                                       </tr>
+                                    </h:panelGroup>
                                 </ui:repeat>
                             </tbody>
                             </table>
@@ -179,22 +173,23 @@
                     </div>
                     <div class="tab-pane" id="5a">
                         <h3>
-                            <table class="table" style="table-layout: fixed;font-size: small" id="forsale-Table" border="1">
+                            <table class="table" style="table-layout: fixed;font-size: small" border="1">
                                 <tr>
                                     <th class="order-table-header">Title</th>
                                     <th class="order-table-header">Category</th>
                                     <th class="order-table-header">Content</th>
                                     <th class="order-table-header">Date</th>
                                 </tr>
-                            <tbody>
+                            <tbody id="Tuition-Table">
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
-                                    
+                                    <h:panelGroup rendered="#{note.category == 'Tuition'}">
                                     <tr>
                                         <td class="">#{note.title}</td>
                                         <td class="">#{note.category}</td>
                                         <td class="">#{note.content}</td>
                                         <td class="">#{note.date}</td>
-                                      </tr>
+                                    </tr>
+                                    </h:panelGroup>
                                 </ui:repeat>
                             </tbody>
                             </table>
@@ -205,6 +200,7 @@
             </div>
         </h:form> 
     </h:body>
+   
 </html>
 
 

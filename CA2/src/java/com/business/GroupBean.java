@@ -22,7 +22,6 @@ public class GroupBean {
     public void addGroup(Group group){
     
         em.persist(group);
-        System.out.println(">>> Added group");
         
     }
 }

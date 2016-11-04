@@ -28,6 +28,11 @@
             <description/>
             <url-pattern>/faces/secure/*</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>secure page</web-resource-name>
+            <description/>
+            <url-pattern>/secure/*</url-pattern>
+        </web-resource-collection>
         <auth-constraint>
             <description/>
             <role-name>USER</role-name>
@@ -53,4 +58,16 @@
         <description/>
         <role-name>USER</role-name>
     </security-role>
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/faces/login.xhtml?faces-redirect=true</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/login.xhtml?faces-redirect=true</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/faces/login.xhtml?faces-redirect=true</location>
+    </error-page>
 </web-app>

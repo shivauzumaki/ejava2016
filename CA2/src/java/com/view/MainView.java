@@ -43,8 +43,6 @@ public class MainView implements Serializable{
         
         this.noteList = new ArrayList<>();
         this.noteList = noteBean.getIndividualNotes(ec.getRemoteUser());
-        //this.noteList = noteBean.getNotes("ALL");
-        System.out.println("My notes list "+ noteList.size());
         return ("displayMyNotes?faces-redirect=true");
     }
 }

@@ -26,46 +26,34 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/noteSocket")
 public class NoteSocket {
     
-//    @Resource(lookup = "concurrent/ThreadPool")
-//	private ManagedScheduledExecutorService executor;
-    
     private Set<Session> sessions = new HashSet<>();
 
 	@OnOpen
 	public void open(javax.websocket.Session session) {
-		System.out.println(">>> new session: " + session.getId());
                 sessions.add(session);
 	}
         
         @OnClose
         public void close(javax.websocket.Session session) {
-		System.out.println(">>>  session rmvd: " + session.getId());
                 sessions.remove(session);
 	}
 
 	@OnMessage
 	public void message(final javax.websocket.Session session, final String msg) {
-		System.out.println(">>> message: " + msg);
-                
+		
+            System.out.println(">>> in thread");
+            final JsonObject message = Json.createObjectBuilder()
+                            .add("message", msg)
+                            .add("date", (new Date()).toString())
+                            .build();
 
-//		executor.submit(new Runnable() {
-//			@Override
-//			public void run() {
-				System.out.println(">>> in thread");
-				final JsonObject message = Json.createObjectBuilder()
-						.add("message", msg)
-						.add("timestamp", (new Date()).toString())
-						.build();
-
-				for (javax.websocket.Session s: session.getOpenSessions())
-					try {
-						s.getBasicRemote().sendText(message.toString());
-					} catch(IOException ex) {
-						try { s.close(); } catch (IOException e) { }
-					}
-		//	}
-		//});
-		System.out.println(">>> exiting message");
+            for (javax.websocket.Session s: session.getOpenSessions())
+                    try {
+                            s.getBasicRemote().sendText(message.toString());
+                    } catch(IOException ex) {
+                            try { s.close(); } catch (IOException e) { }
+                    }
+		
 	}
 
 }

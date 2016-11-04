@@ -19,7 +19,7 @@
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
                         <div class="navbar-header">			
-                                <p class="navbar-text">Notice Board</p>   
+                            <a href="main.xhtml" class="navbar-text">Notice Board</a>   
                         </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav navbar-right">                            
@@ -35,7 +35,7 @@
             <h:panelGrid>                  
             <div class="panel panel-default">
             <div align="center" class="panel-heading">My Notes</div>             
-            <h:dataTable class = "table table-striped" bgcolor=""  value="#{mainView.noteList}" border="1" var="note">
+            <h:dataTable class="table table-striped" style="table-layout: fixed;font-size: small" value="#{mainView.noteList}" border="1" var="note">
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="Title"/>

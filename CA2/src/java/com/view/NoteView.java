@@ -14,6 +14,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -54,17 +56,21 @@ public class NoteView {
         return noteList;
     }
   
-    public void addNote(){
-        System.out.println("Adding a new note");
+    public String addNote(){
+    
         note.setUserid(SessionUtils.getContext().getRemoteUser());
         noteBean.addNote(note);
         
+        note.setTitle("");
+        note.setContent("");
+        
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Notice successfully created"));
+        return null;
     }
     
     public String getNotes() {
         
         this.noteList = new ArrayList<>();
-        
         this.noteList = noteBean.getIndividualNotes(SessionUtils.getContext().getRemoteUser());
         System.out.println("My notes list "+ noteList.size());
         return ("displayMyNotes?faces-redirect=true");

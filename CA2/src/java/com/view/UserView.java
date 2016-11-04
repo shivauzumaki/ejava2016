@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.view;
 
 import com.business.GroupBean;
@@ -54,7 +49,6 @@ public class UserView {
         
             HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance()
                     .getExternalContext().getRequest();
-//        HttpSession session = req.getSession(false);
                
         try{
             req.login(user.getUsername(), user.getPassword());
@@ -84,15 +78,12 @@ public class UserView {
             message =  new FacesMessage("User already registered. Please use another name");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
-                
     }
     
     public String logout() throws IOException {
         
-        //HttpServletRequest req = SessionUtils.getRequest();
         HttpSession session = SessionUtils.getSession();
         session.invalidate();
-        //FacesContext.getCurrentInstance().getExternalContext().redirect("index");
         return ("/login.xhtml?faces-redirect=true");
     }
     

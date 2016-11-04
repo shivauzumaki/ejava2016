@@ -14,30 +14,23 @@
         <script src="#{request.contextPath}/style/js/bootstrap.js" type="text/javascript"></script>
         <script type="text/javascript">
             function publishNote(){
-                alert("Starta");
+
                 var title = document.getElementById('form:title').value;
                 var category = document.getElementById('form:category').value;
                 var content = document.getElementById('form:content').value;
 
-                
                 var message = {"title": title, "category": category, "content": content};
-                console.log(message);
-                alert("Value "+document.getElementById('form:title').value);
                 
                 var url = "ws://localhost:8080/CA2/noteSocket";
                 var socket = new WebSocket(url);
                 
                 socket.onopen = function(){
-                    alert(JSON.stringify(message));
                     socket.send(JSON.stringify(message));
                 }
                 
                 socket.onclose = function(){
-                    alert("Disconnected ! ");
+                    //alert("Disconnected ! ");
                 }
-                
-                
-                
             }
         </script>
     </h:head>
@@ -47,7 +40,7 @@
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
                     <div class="navbar-header">			
-                        <p class="navbar-text">Notice Board</p>   
+                        <a href="main.xhtml" class="navbar-text">Notice Board</a>   
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">                            
@@ -67,9 +60,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2">Title:</label> 
                             <h:inputText id="title" class="form-control" value="#{noteView.note.title}" required="true">
-                                <f:validateLength minimum="1"/>
-                                <f:validateLongRange minimum="1" maximum="5"/> 
-                            </h:inputText>    
+                                <f:validateLength minimum="1" maximum="45"/>
+                            </h:inputText>
                         </div>
                         <br/>
                         <div class="form-group">
@@ -83,8 +75,7 @@
                             <label class="control-label col-sm-2">Content:</label>  
                             <h:inputTextarea id="content" class="form-control" value="#{noteView.note.content}" required="true"
                                              rows="10" cols="70" style="font: caption" >
-                                <f:validateLength minimum="1"/>
-                                <f:validateLongRange minimum="1" maximum="500"/> 
+                                <f:validateLength maximum="500"></f:validateLength>
                             </h:inputTextarea>
                         </div>
                         <br/>
@@ -95,7 +86,7 @@
                         <h:commandButton onclick="publishNote()" class="btn btn-primary pull-right" id="addBtn" value="Add" action="#{noteView.addNote()}"/>
                     </h:panelGrid>
                 </h:form>
-
+                <h:messages globalOnly="true"/>
 
             </div>
         
