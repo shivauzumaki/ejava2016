@@ -55,7 +55,7 @@ public class NoteView {
     }
   
     public void addNote(){
-        
+        System.out.println("Adding a new note");
         note.setUserid(SessionUtils.getContext().getRemoteUser());
         noteBean.addNote(note);
         

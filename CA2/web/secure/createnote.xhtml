@@ -4,112 +4,101 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-    
-    <h:head>
-        <link href="../style/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="../style/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <script src="../style/js/jquery-3.1.1.js" type="text/javascript"></script>
-        <script src="../style/js/bootstrap.min.js" type="text/javascript"></script>
-        
-        <script src="chat.js"></script>
-            
-        </script>
-    </h:head>
-    
-    <h:body>
-        <div align="center" >
-            <h1 style="font-size: xx-large;align-items: center">Notice Board</h1>
-        </div>
-        <div align="center">
-            <div>
-                <h3 style="align-items: center">Create New Note</h3>
-            </div>
-            <div align="center" style="width: 70%;margin-left:180px" >
-                <h:form class="form-horizontal">
-                    <h:panelGrid columns="2" cellspacing="50" cellpadding="20">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Title:</label> 
-                            <h:inputText id="title" class="form-control" value="#{noteView.note.title}" required="true" />
-                            </div>
-                            <br/>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="email">Category:</label> 
-                            <h:selectOneMenu value="#{noteView.note.category}" required="true" >
-                                <f:selectItems  class="dropdown-item" value="#{noteView.categories}"/>
-                            </h:selectOneMenu>
 
+    <h:head>
         <title>Notice Board</title>
         <link href="#{request.contextPath}/style/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
         <link href="#{request.contextPath}/style/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="#{request.contextPath}/style/js/jquery-3.1.1.min.js" type="text/javascript"></script>
         <script src="#{request.contextPath}/style/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="#{request.contextPath}/style/js/jquery-3.1.1.js" type="text/javascript"></script>        
         <script src="#{request.contextPath}/style/js/bootstrap.js" type="text/javascript"></script>
-        <script type="text/javascript"/>
+        <script type="text/javascript">
+            function publishNote(){
+                alert("Starta");
+                var title = document.getElementById('form:title').value;
+                var category = document.getElementById('form:category').value;
+                var content = document.getElementById('form:content').value;
+
+                
+                var message = {"title": title, "category": category, "content": content};
+                console.log(message);
+                alert("Value "+document.getElementById('form:title').value);
+                
+                var url = "ws://localhost:8080/CA2/noteSocket";
+                var socket = new WebSocket(url);
+                
+                socket.onopen = function(){
+                    alert(JSON.stringify(message));
+                    socket.send(JSON.stringify(message));
+                }
+                
+                socket.onclose = function(){
+                    alert("Disconnected ! ");
+                }
+                
+                
+                
+            }
+        </script>
     </h:head>
-    
+
     <h:body>
-        <h:form>   
+        <h:form id="main">   
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
-                        <div class="navbar-header">			
-                                <p class="navbar-text">Notice Board</p>   
+                    <div class="navbar-header">			
+                        <p class="navbar-text">Notice Board</p>   
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">                            
+                            <li><p class="navbar-text">#{request.remoteUser}</p></li>                       
+                            <li><h:commandLink value="Logout" action="#{userView.logout()}"/></li>                   
+                        </ul>
+                    </div>
+                </div>
+            </nav>   
+        </h:form>
+            <div align="center">
 
+                <h3 style="align-items: center">Create New Note</h3>
+                <br/>    
+                <h:form class="form-horizontal" id="form">
+                    <h:panelGrid columns="2" cellspacing="50" cellpadding="20">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Title:</label> 
+                            <h:inputText id="title" class="form-control" value="#{noteView.note.title}" required="true">
+                                <f:validateLength minimum="1"/>
+                                <f:validateLongRange minimum="1" maximum="5"/> 
+                            </h:inputText>    
                         </div>
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav navbar-right">                            
-                                    <li><p class="navbar-text">#{request.remoteUser}</p></li>                       
-                                    <li><h:commandLink value="Logout" action="#{userView.logout()}"/></li>                   
-                                </ul>
+                        <br/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Category:</label> 
+                            <h:selectOneMenu id="category" value="#{noteView.note.category}" required="true" >
+                                <f:selectItems  class="dropdown-item" value="#{noteView.categories}"/>
+                            </h:selectOneMenu>
                         </div>
-
+                        <br/>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Content:</label>  
+                            <h:inputTextarea id="content" class="form-control" value="#{noteView.note.content}" required="true"
+                                             rows="10" cols="70" style="font: caption" >
+                                <f:validateLength minimum="1"/>
+                                <f:validateLongRange minimum="1" maximum="500"/> 
+                            </h:inputTextarea>
+                        </div>
                         <br/>
                         <br/>
-                        <h:panelGroup/>
-                        <h:commandLink class="btn btn-primary" value="Back" onclick="history.go(-1)"/>
-                        <h:commandButton class="btn btn-primary" id="addBtn" value="Add" action="#{noteView.addNote()}"/>
+
+                        <h:panelGroup/> 
+                        <h:commandLink class="btn btn-primary pull-right " value="Back" onclick="history.go(-1)"/>
+                        <h:commandButton onclick="publishNote()" class="btn btn-primary pull-right" id="addBtn" value="Add" action="#{noteView.addNote()}"/>
                     </h:panelGrid>
                 </h:form>
 
-                </div>
-            </nav>  
-                        
-            <div align="center">
-                
-                    <h3 style="align-items: center">Create New Note</h3>
-                    <br/>    
-                    <h:form class="form-horizontal">
-                        <h:panelGrid columns="2" cellspacing="50" cellpadding="20">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="email">Title:</label> 
-                                <h:inputText class="form-control" value="#{noteView.note.title}" required="true" />
-                                </div>
-                                <br/>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="email">Category:</label> 
-                                <h:selectOneMenu value="#{noteView.note.category}" required="true" >
-                                    <f:selectItems  class="dropdown-item" value="#{noteView.categories}"/>
-                                </h:selectOneMenu>
-                            </div>
-                            <br/>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="email">Content:</label>  
-                                <h:inputTextarea class="form-control" value="#{noteView.note.content}" required="true"
-                                                      rows="10" cols="70" style="font: caption" >
-                                                       <f:validateLength maximum="500"></f:validateLength>
-                                </h:inputTextarea>
-                            </div>
-                            <br/>
-                            <br/>
-                            
-                            <h:panelGroup/> 
-                                <h:commandLink class="btn btn-primary pull-right " value="Back" onclick="history.go(-1)"/>
-                                <h:commandButton class="btn btn-primary pull-right" value="Add" action="#{noteView.addNote()}"/>
-                            </h:panelGrid>
-                    </h:form>
-                
 
             </div>
-        </h:form>
+        
     </h:body>
 </html>
 

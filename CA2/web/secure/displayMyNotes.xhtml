@@ -28,36 +28,41 @@
                                 </ul>
                         </div>
                 </div>
-            </nav>   
+            </nav> 
             
+            
+            <div align="center">
+            <h:panelGrid>                  
             <div class="panel panel-default">
-            <div align="center" class="panel-heading">My Notes</div>
-            <div align="center">
-                <h:dataTable value="#{mainView.noteList}" var="note"
-                             cellspacing="15" cellpadding="3" rendered="#{not empty mainView.noteList}" >
-                    <h:column>
-                        <f:facet name="header">Title</f:facet>
-                        #{note.title}
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Category</f:facet>
-                        #{note.category}
-                    </h:column> 
-
-                    <h:column>
-                        <f:facet name="header">Content</f:facet>
-                        #{note.content}
-                    </h:column> 
-
-                    <h:column>
-                        <f:facet name="header">Date</f:facet>
-                        #{note.date}
-                    </h:column>
-                </h:dataTable>
-            </div>
-        </div>
-            <div align="center">
+            <div align="center" class="panel-heading">My Notes</div>             
+            <h:dataTable class = "table table-striped" bgcolor=""  value="#{mainView.noteList}" border="1" var="note">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Title"/>
+                    </f:facet>
+                    <h:outputText value="#{note.title}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Category"/>
+                    </f:facet>
+                    <h:outputText value="#{note.category}"/>
+                </h:column>                
+                 <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Content"/>
+                    </f:facet>
+                    <h:outputText value="#{note.content}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Date"/>
+                    </f:facet>
+                    <h:outputText value="#{note.date}"/>
+                </h:column>
+              </h:dataTable>   
+            </div>               
+            </h:panelGrid>              
             <h:commandLink class="btn btn-primary" value="Back" onclick="history.go(-1)"/>
             </div>
         </h:form>  

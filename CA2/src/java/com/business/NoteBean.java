@@ -30,7 +30,7 @@ public class NoteBean {
     EntityManager em;
     
     public void addNote(Note note) {
-        
+        System.out.println("Persisting .............");
         String uniqueID = UUID.randomUUID().toString().substring(0, 8);
         note.setNoteid(uniqueID);
         note.setDate(new Date());
