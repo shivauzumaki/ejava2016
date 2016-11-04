@@ -19,7 +19,7 @@
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
                         <div class="navbar-header">			
-                            <a href="main.xhtml" class="navbar-text">Notice Board</a>   
+                            <a href="index.xhtml" class="navbar-text" style="font-size: large">Notice Board</a>   
                         </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav navbar-right">                            
@@ -30,13 +30,13 @@
                 </div>
             </nav> 
             
-            
+            <h:commandLink class="btn btn-primary" value="Back" style="margin-left: 76px" onclick="history.go(-1)"/>
             <div align="center">
             <h:panelGrid>                  
             <div class="panel panel-default">
             <div align="center" class="panel-heading">My Notes</div>             
-            <h:dataTable class="table table-striped" style="table-layout: fixed;font-size: small" value="#{mainView.noteList}" border="1" var="note">
-                <h:column>
+            <h:dataTable class="table table-striped" style="table-layout: fixed;font-size: small; width:1200px" value="#{mainView.noteList}" border="1" var="note">
+                <h:column>0
                     <f:facet name="header">
                         <h:outputText value="Title"/>
                     </f:facet>
@@ -63,7 +63,7 @@
               </h:dataTable>   
             </div>               
             </h:panelGrid>              
-            <h:commandLink class="btn btn-primary" value="Back" onclick="history.go(-1)"/>
+            
             </div>
         </h:form>  
     </h:body>

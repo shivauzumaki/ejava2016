@@ -118,6 +118,7 @@ public class UserView {
     }
     
     public void isLoggedIn() throws IOException{
+        
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         
         if(ec.getUserPrincipal() != null){

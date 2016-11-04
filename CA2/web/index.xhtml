@@ -6,12 +6,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <link href="style/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="style/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <script src="style/js/bootstrap.js" type="text/javascript"></script>
-        <script src="style/js/jquery-3.1.1.js" type="text/javascript"></script>
-        <script src="style/js/bootstrap.min.js" type="text/javascript"></script>
-        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <link href="${request.contextPath}/style/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
+        <link href="${request.contextPath}/style/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="${request.contextPath}/style/js/bootstrap.js" type="text/javascript"></script>
+        <script src="${request.contextPath}/style/js/jquery-3.1.1.js" type="text/javascript"></script>
+        <script src="${request.contextPath}/style/js/bootstrap.min.js" type="text/javascript"></script>
         <script type="text/javascript">
             $(function () {
 
@@ -46,8 +45,8 @@
         <h:form>   
             <nav class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
-                    <div class="navbar-header">			
-                        <a href="#" class="navbar-text">Notice Board</a>  
+                    <div class="navbar-header"><br/>		
+                        <h:commandLink action="#{userView.isLoggedIn()}" style="font-size: x-large">Notice Board</h:commandLink>  
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
@@ -84,7 +83,7 @@
                                     <th class="">Title</th>
                                     <th class="">Category</th>
                                     <th class="">Content</th>
-                                    <th class="">Date</th>
+                                    <th class="">Posted Date</th>
                                 </tr>
                             <tbody id="All-Table" >
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
@@ -106,7 +105,7 @@
                                     <th class="">Title</th>
                                     <th class="">Category</th>
                                     <th class="">Content</th>
-                                    <th class="">Date</th>
+                                    <th class="">Posted Date</th>
                                 </tr>
                             <tbody id="Social-Table">
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
@@ -130,7 +129,7 @@
                                     <th class="">Title</th>
                                     <th class="">Category</th>
                                     <th class="">Content</th>
-                                    <th class="">Date</th>
+                                    <th class="">Posted Date</th>
                                 </tr>
                             <tbody id="For Sale-Table">
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
@@ -151,10 +150,10 @@
                         <h3>
                             <table class="table" style="table-layout: fixed;font-size: small" border="1">
                                 <tr>
-                                    <th class="order-table-header">Title</th>
-                                    <th class="order-table-header">Category</th>
-                                    <th class="order-table-header">Content</th>
-                                    <th class="order-table-header">Date</th>
+                                    <th class="">Title</th>
+                                    <th class="">Category</th>
+                                    <th class="">Content</th>
+                                    <th class="">Posted Date</th>
                                 </tr>
                             <tbody id="Jobs-Table">
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
@@ -175,10 +174,10 @@
                         <h3>
                             <table class="table" style="table-layout: fixed;font-size: small" border="1">
                                 <tr>
-                                    <th class="order-table-header">Title</th>
-                                    <th class="order-table-header">Category</th>
-                                    <th class="order-table-header">Content</th>
-                                    <th class="order-table-header">Date</th>
+                                    <th class="">Title</th>
+                                    <th class="">Category</th>
+                                    <th class="">Content</th>
+                                    <th class="">Posted Date</th>
                                 </tr>
                             <tbody id="Tuition-Table">
                                 <ui:repeat var="note" value="#{noteView.allNotes}">
