@@ -44,8 +44,6 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 public class UploadServlet extends HttpServlet {
     
     @EJB PodBean podBean;
-    private static final String URL = "http://10.10.0.50:8080/epod/upload";
-    
     
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException{
         
@@ -54,38 +52,9 @@ public class UploadServlet extends HttpServlet {
         byte[] image = readPart(req.getPart("image"));
         String date = new String(readPart(req.getPart("time")));
         podBean.update(Integer.parseInt(podId), note, image, new Date(Long.parseLong(date)));
-        getAcknowlodgement(podId, note, image);
+        podBean.getAcknowlodgement();
     }
-    
-    @Schedule(second="*/2")
-    private void getAcknowlodgement(String podId, String note, byte[] image) throws FileNotFoundException, IOException {
-        
-        Client client = ClientBuilder.newBuilder()
-            .register(MultiPartFeature.class).build();
-        WebTarget webTarget = client.target(URL);
-  
-        
-        BodyPart img = new BodyPart(image, MediaType.APPLICATION_OCTET_STREAM_TYPE);
-        img.setContentDisposition(FormDataContentDisposition.name("image").fileName("image.png").build());
-
-        MultiPart formData = new FormDataMultiPart()
-            .field("podId", podId, MediaType.TEXT_PLAIN_TYPE)
-            .field("note", note, MediaType.TEXT_PLAIN_TYPE)
-            .field("teamId", "1856edd8")
-            .field("callback", "http://10.10.24.227:8080/epod/callback")
-            .bodyPart(img);
-        formData.setMediaType(MediaType.MULTIPART_FORM_DATA_TYPE);
-        
-        Invocation.Builder invo = webTarget.request();
-                
-      //  Response response = webTarget.request(MediaType.APPLICATION_JSON_TYPE)
-     //       .post(Entity.entity(multiPart, multiPart.getMediaType()));
-     
-        Response callResp = invo.post(Entity.entity(formData, formData.getMediaType()));
-        
-        System.out.println(callResp.getStatus());
-    }
-    
+   
     private byte[] readPart(Part p) throws IOException { 
         byte[] buffer = new byte[1024 * 8]; 
         int sz = 0; 
