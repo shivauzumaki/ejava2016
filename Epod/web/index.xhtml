@@ -7,13 +7,15 @@
     </h:head>
     <h:body>
         
-        <h:form>            
+        <h:form>
+            <div align="center">
             <h:panelGrid>                
                 Name: <h:inputText value="#{deliveryView.name}" size="20" required="true" requiredMessage="Please enter the username"/><br/>
                 Address: <h:inputTextarea value="#{deliveryView.address}" required="true" requiredMessage="Please enter the password"/><br/>
                 Phone: <h:inputText value="#{deliveryView.phone}" size="20" required="true" requiredMessage="Please enter the password"/><br/>                
                 <h:commandButton value="Submit" action="#{deliveryView.create()}"/>
-            </h:panelGrid>                           
+            </h:panelGrid>  
+            </div>
         </h:form>
         
     </h:body>

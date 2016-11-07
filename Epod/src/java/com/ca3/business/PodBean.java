@@ -6,7 +6,6 @@
 package com.ca3.business;
 
 import com.ca3.model.Pod;
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -31,7 +30,6 @@ public class PodBean {
     
     public List<Pod> getPods(){
         
-        System.out.println("Size >> "+ em.createNamedQuery("Pod.findAll", Pod.class).getResultList().size());
         return em.createNamedQuery("Pod.findAll", Pod.class).getResultList();
     }
     
@@ -44,5 +42,13 @@ public class PodBean {
         pod.setDeliveryDate(date);
         
         em.persist(pod);
+    }
+
+    public void updateNew(String ackId, int podId) {
+        
+        Pod pod = em.find(Pod.class, podId);
+        pod.setAckId(ackId);
+
+        em.merge(pod);
     }
 }

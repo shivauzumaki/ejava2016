@@ -85,7 +85,6 @@ public class DeliveryView {
         pod.setDelivery(delivery);
         pod.setDeliveryDate(new Date());
         podBean.save(pod);
-        System.out.println("Adding everything !!!!!!!!");
                 
     }
 }

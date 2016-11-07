@@ -49,31 +49,9 @@ public class DeliveryResource {
                     .add("phone", pod.getDelivery().getPhone());
             podArray.add(podobj);
         });
-        System.out.println("EXited");
-        //System.out.println("Returning from AppointmentResource !!!!");
+        
         return Response.ok(podArray.build()).build();
 
-//        System.out.println("Entered !!!!!");
-//        
-//        List<Pod> podList = podBean.getPods();
-//        System.out.println("SIZE  >>" + podList.size());
-//        JsonArrayBuilder podArray = Json.createArrayBuilder();
-//        //for(Pod pod : podList) {
-//            podList.stream().forEach((pod) -> {
-//            podArray.add(Json.createObjectBuilder().add("teamId", "1856edd8")
-//                    .add("podId", pod.getPodId())
-//                    .add("address", pod.getDelivery().getAddress())
-//                    .add("name", pod.getDelivery().getName())
-//                    .add("phone", pod.getDelivery().getPhone())
-//                    .build());
-//            });
-//            //System.out.println("POD ID" + pod.getPodId());
-//            System.out.println("Array >>> "+podArray);
-//        //}
-//        System.out.println(">>> "+podArray.build());
-//        System.out.println("Exiting !!!");
-//        //return (Response.ok(podArray.build()).build());
-//        return (Response.status(Response.Status.OK).entity(podArray.build()).build());
     }
 
 }

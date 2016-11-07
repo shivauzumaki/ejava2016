@@ -30,7 +30,6 @@ public class DeliveryBean {
     public List<Delivery> getItems(){
         
         TypedQuery<Delivery> deliveries = em.createQuery(getItems, Delivery.class);
-        System.out.println("Size "+ deliveries.getResultList().size());
         return deliveries.getResultList();
     }
             
