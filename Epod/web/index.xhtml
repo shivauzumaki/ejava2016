@@ -6,7 +6,20 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        
+        <h:form>
+            
+            <h:panelGrid>                
+                Name: <h:inputText value="#{packageView.}" size="20" required="true" requiredMessage="Please enter the username"/><br/>
+                Address: <h:inputTextarea value="#{packageView.address}" size="20" required="true" requiredMessage="Please enter the password"/><br/>
+                Phone: <h:inputTextarea value="#{packageView.phone}" size="20" required="true" requiredMessage="Please enter the password"/><br/>
+                
+                <h:commandButton value="Submit" action="#{packageView.create()}"/>
+
+            </h:panelGrid>
+                           
+        </h:form>
+        
     </h:body>
 </html>
 
