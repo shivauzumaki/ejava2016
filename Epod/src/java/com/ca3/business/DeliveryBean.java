@@ -23,6 +23,10 @@ public class DeliveryBean {
     
     @PersistenceContext private EntityManager em;
     
+    public void save(Delivery delivery) {
+		em.persist(delivery);
+	} 
+    
     public List<Delivery> getItems(){
         
         TypedQuery<Delivery> deliveries = em.createQuery(getItems, Delivery.class);
