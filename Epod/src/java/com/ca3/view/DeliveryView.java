@@ -6,15 +6,13 @@
 package com.ca3.view;
 
 import com.ca3.business.DeliveryBean;
+import com.ca3.business.PodBean;
 import com.ca3.model.Delivery;
+import com.ca3.model.Pod;
 import java.util.Date;
-import java.util.UUID;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.TemporalType;
-import static javax.persistence.TemporalType.DATE;
 
 /**
  *
@@ -25,6 +23,7 @@ import static javax.persistence.TemporalType.DATE;
 public class DeliveryView {
     
     @EJB private DeliveryBean deliveryBean;
+    @EJB private PodBean podBean;
     
     private int packageId;
     private Delivery delivery;
@@ -81,5 +80,12 @@ public class DeliveryView {
         delivery.setCreateDate(new Date());
         delivery.setAddress(address);
         deliveryBean.save(delivery);
+        
+        Pod pod = new Pod();
+        pod.setDelivery(delivery);
+        pod.setDeliveryDate(new Date());
+        podBean.save(pod);
+        System.out.println("Adding everything !!!!!!!!");
+                
     }
 }

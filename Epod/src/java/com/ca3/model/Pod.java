@@ -6,6 +6,7 @@
 package com.ca3.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,9 +16,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -61,8 +62,8 @@ public class Pod implements Serializable {
     @Column(name = "ack_id")
     private String ackId;
     @JoinColumn(name = "pkg_id", referencedColumnName = "pkg_id")
-    @ManyToOne(optional = false)
-    private Delivery pkgId;
+    @OneToOne(optional = false)
+    private Delivery delivery;
 
     public Pod() {
     }
@@ -116,12 +117,12 @@ public class Pod implements Serializable {
         this.ackId = ackId;
     }
 
-    public Delivery getPkgId() {
-        return pkgId;
+    public Delivery getDelivery() {
+        return delivery;
     }
 
-    public void setPkgId(Delivery pkgId) {
-        this.pkgId = pkgId;
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 
     @Override
